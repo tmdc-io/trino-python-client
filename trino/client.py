@@ -591,7 +591,8 @@ class TrinoRequest(object):
 
         http_response.encoding = "utf-8"
         response = http_response.json()
-        if "error" in response:
+        logger.info("response is: ", response)
+        if response.get("error") is not None:
             raise self._process_error(response["error"], response.get("id"))
 
         if constants.HEADER_CLEAR_SESSION in http_response.headers:
